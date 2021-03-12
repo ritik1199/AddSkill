@@ -1,0 +1,178 @@
+<html>
+
+<head>
+    <script src ="math.js" type="text/javascript">
+        
+    </script>
+
+    <style>
+        .title {
+            border-radius: 10px;
+            margin-bottom: 10px;
+            text-align: center;
+            width: 210px;
+            color: #ff4456;
+            border: solid black 1px;
+        }
+
+        input[type="button"] {
+            border-radius: 3px;
+            background-color: lightblue;
+            color: black;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        input[type="text"] {
+            text-align: right;
+            background-color: white;
+            width: 100%;
+            border: 1px solid black;
+            height: 100%;
+        }
+
+        td {
+            border: none;
+        }
+
+        tr {
+            border: none;
+        }
+
+        table {
+            width: 22%;
+            height: 200px;
+        }
+    </style>
+
+    <script type="text/javascript">
+        let computationMap = new Map();
+        function showValueOrOperation(value) {
+            try {
+                if (isNaN(parseFloat(value))) {
+                    if (!computationMap.has("operator")) {
+                        computationMap.set("operator", value);
+                    }
+                }
+                
+
+            }
+            catch (error) {
+                document.getElementById("calc-disply-value").value = "There's been an error";
+                console.log(error);
+            }
+            finally {
+                let currentValue = document.getElementById("calc-input-value").value;
+                
+            }
+        }
+
+        function Calulate() {
+            let number1 = document.getElementById('calc-input-value').value;
+            let operator = computationMap.get("operator");
+            
+            switch (operator) {
+                case "DtR":
+                    var result = number1*73;
+                    document.getElementById("calc-disply-value").value = result;
+                    break;
+                case "DtP":
+                    var result = number1*0.72;
+                    document.getElementById("calc-disply-value").value = result;
+                    break;
+                case "DtE":
+                    var result = number1*0.84;
+                    document.getElementById("calc-disply-value").value = result;
+                    break;
+                case "RtD":
+                    var result = number1*0.014;
+                    document.getElementById("calc-disply-value").value = result;
+                    break;
+                case "RtP":
+                    var result = number1*0.01;
+                    document.getElementById("calc-disply-value").value = result;
+                    break;
+                case "RtE":
+                    var result = number1*0.012;
+                    document.getElementById("calc-disply-value").value = result;
+                    break;
+                case "PtR":
+                    var result = number1*101.05;
+                    document.getElementById("calc-disply-value").value = result;
+                    break;
+                case "PtD":
+                    var result = number1*1.39;
+                    document.getElementById("calc-disply-value").value = result;
+                    break;
+                case "PtE":
+                    var result = number1*1.17;
+                    document.getElementById("calc-disply-value").value = result;
+                    break;
+                case "EtR":
+                    var result = number1*86.6;
+                    document.getElementById("calc-disply-value").value = result;
+                    break;
+                case "EtP":
+                    var result = number1*0.86;
+                    document.getElementById("calc-disply-value").value = result;
+                    break;
+                case "EtD":
+                    var result = number1*1.19;
+                    document.getElementById("calc-disply-value").value = result;
+                    break;
+                case "c":
+                    f=1;
+                    document.getElementById("calc-disply-value").value = null;
+                    document.getElementById("calc-input-value").value = null;
+                    break;
+            }
+            computationMap.clear();
+            computationMap.get("number1") ?? computationMap.set("number1", result);
+            if(f==1)
+            {
+                computationMap.clear();
+                f=0;
+            }
+        }
+    </script>
+
+</head>
+
+
+<body>
+    <table border="1">
+        <tr>
+            <td colspan="3"><input type="text" id="calc-input-value" /></td>
+            <td colspan="3"><input type="text" id="calc-disply-value" /></td>
+        </tr>
+        <tr>
+            <td><input type="button" value="c" onclick="showValueOrOperation('c')" /> </td>
+            <td><input type="button" value="=" onclick="Calulate()" /> </td>
+        </tr>
+        <tr>
+            <td><input type="button" value="DtR" onclick="showValueOrOperation('DtR')" /> </td>
+            <td><input type="button" value="DtP" onclick="showValueOrOperation('DtP')" /> </td>
+            <td><input type="button" value="DtE" onclick="showValueOrOperation('DtE')" /> </td>
+        </tr>
+        <tr>
+            <td><input type="button" value="RtD" onclick="showValueOrOperation('RtD')" /> </td>
+            <td><input type="button" value="RtP" onclick="showValueOrOperation('RtP')" /> </td>
+            <td><input type="button" value="RtE" onclick="showValueOrOperation('RtE')" /> </td>
+        </tr>
+        <tr>
+            <td><input type="button" value="PtR" onclick="showValueOrOperation('PtR')" /> </td>
+            <td><input type="button" value="PtD" onclick="showValueOrOperation('PtD')" /> </td>
+            <td><input type="button" value="PtE" onclick="showValueOrOperation('PtE')" /> </td>
+        </tr>
+        <tr>
+            <td><input type="button" value="EtR" onclick="showValueOrOperation('EtR')" /> </td>
+            <td><input type="button" value="EtP" onclick="showValueOrOperation('EtP')" /> </td>
+            <td><input type="button" value="EtD" onclick="showValueOrOperation('EtD')" /> </td>
+            
+        </tr>
+       
+    </table>
+  <div id="bitnami-banner" data-banner-id="3aba2">  <style>#bitnami-banner {z-index:100000;height:80px;padding:0px;width:120px;background:transparent;position:fixed;right:0px;bottom:0px;border:0px solid #EDEDED;} #bitnami-banner .bitnami-corner-image-div {position:fixed;right:0px;bottom:0px;border:0px;z-index:100001;height:110px;} #bitnami-banner .bitnami-corner-image-div .bitnami-corner-image {position:fixed;right:0px;bottom:0px;border:0px;z-index:100001;height:110px;} #bitnami-close-banner-button {height:12px;width:12px;z-index:10000000000;position:fixed;right:5px;bottom:65px;display:none;cursor:pointer}</style>  <img id="bitnami-close-banner-button" src="/bitnami/images/close.png"/>  <div class="bitnami-corner-image-div">     <a href="/bitnami/index.html" target="_blank">       <img class="bitnami-corner-image" alt="Bitnami" src="/bitnami/images/corner-logo.png"/>     </a>  </div>  <script type="text/javascript" src="/bitnami/banner.js"> </script> </div>   </body>
+
+</html>
