@@ -50,8 +50,8 @@
     <script type="text/javascript">
         let computationMap = new Map();
         let operatorarray=["+","-","*","/","**","sin","cos","tan","c","his"]
-        localStorage.setItem("num11", "");
-        localStorage.setItem("num22", "");
+        computationMap.set("number1", 0);
+        computationMap.set("number2", 0);
         var a = new Array();
         class Calculator {
             _num1 = null;
@@ -104,13 +104,13 @@
                 return this.getNum1 ** this.getNum2;
             }
             sin = function () {
-                return Math.sin(this.getNum2);
+                return Math.sin(this.getNum1);
             }
             cos = function () {
-                return Math.cos(this.getNum2);
+                return Math.cos(this.getNum1);
             }
             tan = function () {
-                return Math.tan(this.getNum2);
+                return Math.tan(this.getNum1);
             }
         }
         function setandadd(value,flag)
@@ -119,15 +119,15 @@
             {
             if(flag)
             {
-                let num2value = localStorage.getItem("num22") + value;
+                let num2value = computationMap.get("number2") + value;
 
-                localStorage.setItem("num22",num2value)
+                computationMap.set("number2",num2value)
             }
             else
             {
-                let num1value = localStorage.getItem("num11") + value;
+                let num1value = computationMap.get("number1") + value;
 
-                localStorage.setItem("num11",num1value)
+                computationMap.set("number1",num1value)
             }
         }
         }
@@ -138,19 +138,19 @@
                 f1=true;
             }
             setandadd(value,f1);  
-
+            
             try {
                 if (isNaN(parseFloat(value))) {
-                    if (!computationMap.has("operator")&&operatorarray.includes(value)) {
+                    if (!computationMap.has("operator")) {
                         computationMap.set("operator", value);
                     }
                 }
                 // else {
                 //     if (!computationMap.has("number1")) {
-                //         computationMap.set("number1", parseFloat(localStorage.getItem("num1")));
+                //         computationMap.set("number1", value);
                 //     }
                 //     else if (!computationMap.has("number2")) {
-                //         computationMap.set("number2", parseFloat(localStorage.getItem("num2")));
+                //         computationMap.set("number2", value);
                 //     }
                 // }
 
@@ -165,15 +165,16 @@
                 document.getElementById("calc-disply-value").value = displayValue;
             }
         }
-        
+        function history() {
+            for (var i = 0; i < a.length; i--) {
+                console.log(a[i]);
+            }
+        }
 
         function Calulate() {
-            let number2 = parseFloat(localStorage.getItem("num22"));
+            let number2 = parseFloat(computationMap.get("number2"));
             let operator = computationMap.get("operator");
-            let number1 = parseFloat(localStorage.getItem("num11"));
-            // localStorage.setItem("num1", "0");
-            // localStorage.setItem("num2", "0");
-            f1=false;
+            let number1 = parseFloat(computationMap.get("number1"));
             let calculator = new Calculator(number1, number2);
             let scientificCalculator = new ScientificCalculator(number1, number2);
             var f=0;
@@ -225,8 +226,8 @@
                      break;
             }
             computationMap.clear();
-            localStorage.setItem("num11", result);
-            localStorage.setItem("num22","");
+            computationMap.get("number1") ?? computationMap.set("number1", result);
+            computationMap.set("number2",0);
             if(a.length<=10)
             {
                 a.push(result);
@@ -240,8 +241,6 @@
                 computationMap.clear();
                 f=0;
                 a.length=0;
-                localStorage.setItem("num11","");
-                localStorage.setItem("num22","");
             }
 
 
