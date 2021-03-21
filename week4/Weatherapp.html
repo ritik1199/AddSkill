@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Weather App</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+ 
+  <style>
+    h1{
+      color: red;
+      text-align: center;
+    }
+    #fileToLoad{
+      width:600px;
+      border: 1px solid black;
+    }
+    
+    .box1{
+      width: 1000px;
+      border: 1px solid black;
+    }
+
+    
+    span{
+      border: 3px solid red;
+    }
+  </style>
+</head>
+
+<body>
+    
+    <div class="box1" id="inputTextToSave" contenteditable="true" >
+  </div>
+  <select name="Item" onchange="showme(this)">
+      <option value="celsius">celsius</option>
+      <option value="fahrenheit">fahrenheit </option>
+      </select>
+    <button id="sendrequest">Check</button><br><br>
+    <div class="box" id="main" >
+  </div>
+  <div class="box" id="temp" >
+  </div>
+  <div class="box" id="humidity"  >
+  </div>
+  <div class="box" id="wind" >
+  </div>
+
+
+
+
+  
+  <script type="text/javascript">
+    var x;
+
+  sendrequest.onclick= () => {
+    let x=document.getElementById("inputTextToSave").textContent;
+    let request = new XMLHttpRequest();
+    let url ="https://api.openweathermap.org/data/2.5/weather?appid=cf939d391491deedb34e5aebc11ea004&q="+x;
+    request.open("GET",url);
+    request.send();
+    request.onload = () =>{
+      if(request.status!=500)
+      {
+        
+        let rso=JSON.parse(request.response);
+        let b=rso.main.temp-273;
+        document.getElementById("wind").textContent="windspeed  "+rso.wind.speed;
+        document.getElementById("temp").textContent="temp  "+b+"   degree celsius";
+        document.getElementById("humidity").textContent="humidity  "+rso.main.humidity;
+        document.getElementById("main").textContent="pressure  "+rso.main.pressure;
+        window.x=rso.main.temp;
+        
+      }
+    }
+    
+    
+    }
+    function showme(selectedOption) {
+      console.log(window.x);
+      let c=x-273;
+      let f=c*1.8+32;
+
+    if(selectedOption.value=="celsius") {
+        document.getElementById('temp').textContent = "temperature  "+c+"  degree celsius";
+    } else {
+        document.getElementById('temp').textContent = "temperature  "+f+"  degree fahrenheit";
+    }
+  
+    
+}
+    
+
+
+
+
+    </script>
+
+</body>
+
+</html>

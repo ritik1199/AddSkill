@@ -25,7 +25,7 @@
     }
     
     span{
-      border: 3px solid red;
+      border-bottom: 2px solid red;
     }
   </style>
 </head>
@@ -59,6 +59,8 @@
 
   sendrequest.onclick= () => {
     let x=document.getElementById("inputTextToSave").textContent;
+    var words = x.split(/\s/);
+    console.log(words);
     let request = new XMLHttpRequest();
     let url ="https://api.textgears.com/spelling?language=en-US&key=R69nPhkNE4AqTbN4&text="+x;
     request.open("GET",url);
@@ -67,11 +69,10 @@
       if(request.status!=500)
       {
         console.log(request.response);
-        
-        let rso=JSON.parse(request.response);
+        let rso=JSON.parse(request.response)
         for(let i=0;i<rso.response.errors.length;i++)
         {
-          console.log(rso.response.errors[i].better);
+          
           wrapText("inputTextToSave",rso.response.errors[i].offset,rso.response.errors[i].length);
           
         }
@@ -80,7 +81,7 @@
     
     
     }
-    function wrapText(id, offset, length,index){
+    function wrapText(id, offset, length){
     $("#"+id).html(function(i,oldHtml) {
         var i, c, spanStart, spanStop;
         for (i = 0, c = 0; i < oldHtml.length; i++) {
